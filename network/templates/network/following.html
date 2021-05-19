@@ -1,0 +1,31 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <script>
+        var user = "{{user}}";
+        var page = "{{page}}";
+        var pages = "{{pages}}";
+        var follow = true;
+        var profile = false;
+    </script>
+
+    <script src="{% static 'network/network.js' %}"></script>
+
+    {% if user.is_authenticated %}
+    <div id='new-post-div'>
+        <h3>New Post</h3>
+        <form id='new-post'>
+            <textarea id='new-post-content' name='new-post-content' class='form-control'></textarea><br>
+            <input type='submit' value='Post' class='btn btn-primary'>
+        </form>
+    </div>
+    {% endif %}
+    <br>
+    <h1>Following</h1>
+    <br>
+    <div id='follow-posts'>
+    </div>
+
+{% endblock %}

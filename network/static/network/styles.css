@@ -1,0 +1,27 @@
+div {
+    margin:10px 2px;
+    padding: 10px;
+}
+
+#all-posts div, #follow-posts div, #new-post-div, #user-posts div {
+    border: 1px solid silver;
+}
+
+
+#all-posts, #follow-posts, #user-posts {
+    padding: 0px;
+    margin:0;
+}
+
+#following, #followers {
+    display:inline-block;
+    text-align: center;
+}
+
+#following-page, .edit-post, .like {
+    cursor: pointer;
+}
+
+.edited {
+    color:grey;
+}

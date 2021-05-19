@@ -1,0 +1,41 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+{% load static %}
+
+
+    <h1>{{profile_user}}</h1>
+
+    {% if can_follow %}
+        <a href="{% url 'follow' profile_user %}" id="follow" class="btn btn-primary">Follow</a><br>
+    {% endif %}
+
+    {% if can_unfollow %}
+        <a href="{% url 'unfollow' profile_user %}" id="unfollow" class="btn btn-sm btn-outline-primary">Unfollow</a><br>
+    {% endif %}
+
+    <div id='following'>
+        <h5>Following</h5>
+        <h3>{{following}}</h3>  
+    </div>
+
+    <div id='followers'>
+        <h5>Followers</h5>
+        <h3>{{followers}}</h3>
+    </div>
+
+
+    <div id="all-posts"></div>
+    </div>
+    
+    <script>
+        var user = "{{user}}";
+        var profile_user = "{{profile_user}}";
+        var page = "{{page}}";
+        var pages = "{{pages}}";
+        var follow = false;
+        var profile = true;
+    </script>
+    <script src="{% static 'network/network.js' %}"></script>
+
+{% endblock %}
