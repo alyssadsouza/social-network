@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function see_posts(page, pages, follow, profile) {
+  page = Number(page);
+  pages = Number(pages);
+  console.log(page, pages);
 
   var post_source = '';
   var div_source = '';
@@ -58,18 +61,36 @@ function see_posts(page, pages, follow, profile) {
 
     document.querySelector(div_source).append(post_div);
     });
+
+    // Add pagination nav
+    document.querySelector(div_source).innerHTML += `
+    <nav id="pagination-nav">
+      <ul class="pagination">
+        <li class="page-item"><button id="previous" class="page-link">Previous</button></li>
+    `;
+
+    if (page === 1) {
+      document.getElementById("previous").disabled = true;
+    }
     
-    if (page < pages) {
-      document.querySelector(div_source).innerHTML += `
-        <button id="next" class="btn btn-primary" data.page=${page}>Next</button>
-      `;
+    for (i=1; i<=pages; i++) {
+      document.querySelector(".pagination").innerHTML += `
+      <li class="page-item"><button id="go-to-page" class="page-link" data-page=${i}>${i}</button></li>
+    `;
     }
 
-    if (page > 1) {
-      document.querySelector(div_source).innerHTML += `
-        <button id="previous" class="btn btn-primary" data.page=${page}>Previous</button>
-      `;
+    document.querySelector(".pagination").innerHTML += `
+    <li class="page-item"><button id="next" class="page-link">Next</button></li>
+    `;
+    if (page === pages) {
+      document.getElementById("next").disabled = true;
+
     }
+    
+    document.querySelector(div_source).innerHTML += `
+      </ul>
+    </nav>
+    `;
 
     if (document.querySelector("#new-post") !== null) {
       document.querySelector("#new-post").onsubmit = () => {
@@ -94,11 +115,15 @@ function see_posts(page, pages, follow, profile) {
     });
 
     document.querySelectorAll("#next").forEach(button => {
-      button.addEventListener("click", () => see_posts(Number(page)+1, pages, follow, profile));
+      button.addEventListener("click", () => see_posts(page+1, pages, follow, profile));
+    });
+
+    document.querySelectorAll("#go-to-page").forEach(button => {
+      button.addEventListener("click", () => see_posts(Number(button.dataset.page), pages, follow, profile));
     });
 
     document.querySelectorAll("#previous").forEach(button => {
-      button.addEventListener("click", () => see_posts(Number(page)-1, pages, follow, profile));
+      button.addEventListener("click", () => see_posts(page-1, pages, follow, profile));
     });
 
     document.querySelectorAll(".like").forEach(link => {
